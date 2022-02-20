@@ -22,16 +22,11 @@ class AnimeResourceController extends Controller
 
     public function main(AnimeSource $source, Request $request)
     {
-        $ids = collect(explode(',', $request->input('id')))->mapWithKeys(function ($item) {
-            return [$item => intval($item)];
-        });
+        $ids = explode(',', $request->input('id'));
 
-        if ($source != AnimeSource::MyAnimeList)
-        {
-            $ids = $this->entry_service->convert($ids->toArray(), $source->value);
-        }
+        $ids = $this->entry_service->convert($ids, $source);
 
-        $resources = $this->resource_service->get($ids->values()->toArray());
+        $resources = $this->resource_service->get($ids->filter()->values()->toArray());
 
         $response = $this->prepareResponse($ids, $resources);
 
@@ -45,7 +40,7 @@ class AnimeResourceController extends Controller
         {
             $response->push([
                 'id' => $id_from_request,
-                'resources' => $resources[$id]
+                'resources' => $resources[$id] ?? []
             ]);
         }
 

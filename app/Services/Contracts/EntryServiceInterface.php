@@ -2,9 +2,10 @@
 
 namespace App\Services\Contracts;
 
+use App\Enums\AnimeSource;
 use Illuminate\Support\Collection;
 
 interface EntryServiceInterface
 {
-    public function convert(array|int $ids, string $entry_from, string $entry_to = 'myanimelist'): Collection;
+    public function convert(array|int $ids, AnimeSource $entry_from, AnimeSource $entry_to = AnimeSource::MyAnimeList): Collection;
 }
