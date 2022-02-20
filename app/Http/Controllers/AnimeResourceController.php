@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Enums\AnimeSource;
+use App\Http\Requests\AnimeResourceRequest;
 use App\Http\Resources\MultipleAnimeResource;
 use App\Services\Contracts\EntryServiceInterface;
 use App\Services\Contracts\ResourceServiceInterface;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class AnimeResourceController extends Controller
@@ -20,7 +20,7 @@ class AnimeResourceController extends Controller
         $this->resource_service = $resource_service;
     }
 
-    public function main(AnimeSource $source, Request $request)
+    public function main(AnimeSource $source, AnimeResourceRequest $request)
     {
         $ids = explode(',', $request->input('id'));
 
