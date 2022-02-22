@@ -13,7 +13,12 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/', function () {
+    return response()->json(['version' => '1']);
+});
 
-Route::group(['prefix' => 'resources'], function () {
-    Route::get('anime/{source}', [AnimeResourceController::class, 'main']);
+Route::middleware('cache.headers:public;max_age=129600;etag')->group(function () {
+    Route::group(['prefix' => 'resources'], function () {
+        Route::get('anime/{source}', [AnimeResourceController::class, 'main']);
+    });
 });
