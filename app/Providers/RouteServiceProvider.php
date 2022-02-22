@@ -29,6 +29,17 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
+            Route::get('/', function () {
+                $v = config('app.version');
+
+                return response()->json([
+                    'current_version' => $v,
+                    'current_version_url' => config('app.url') . '/v' . explode('.', $v)[0],
+                    'api_documentations' => config('app.api_docs_url'),
+                    'discord' => config('app.discord_url')
+                ]);
+            });
+
             Route::middleware('api')->group(function () {
                 Route::prefix('v1')
                 ->namespace($this->namespace)

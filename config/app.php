@@ -53,10 +53,27 @@ return [
     | your application so that it is used when running Artisan tasks.
     |
     */
-
+    
     'url' => env('APP_URL', 'http://localhost'),
-
+    
     'asset_url' => env('ASSET_URL', null),
+    
+    'api_docs_url' => env('API_DOCUMENTATION_URL', 'http://localhost'),
+    
+    'discord_url' => env('WIBUSAKA_LINK_DISCORD'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Version
+    |--------------------------------------------------------------------------
+    |
+    | This URL is used by the console to properly generate URLs when using
+    | the Artisan command line tool. You should set this to the root of
+    | your application so that it is used when running Artisan tasks.
+    |
+    */
+
+    'version' => env('APP_VERSION', 1.0),
 
     /*
     |--------------------------------------------------------------------------
