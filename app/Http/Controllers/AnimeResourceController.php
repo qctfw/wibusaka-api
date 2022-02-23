@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\AnimeSource;
+use App\Exceptions\RequestIdsExceededException;
 use App\Http\Requests\AnimeResourceRequest;
 use App\Http\Resources\MultipleAnimeResource;
 use App\Services\Contracts\EntryServiceInterface;
@@ -22,7 +23,12 @@ class AnimeResourceController extends Controller
 
     public function main(AnimeSource $source, AnimeResourceRequest $request)
     {
-        $ids = explode(',', $request->input('id'));
+        $ids = explode(',', trim($request->input('id'), ','));
+        $ids = array_unique($ids);
+
+        if (count($ids) > config('wibusaka.max_id_per_request')) {
+            throw new RequestIdsExceededException();
+        }
 
         $ids = $this->entry_service->convert($ids, $source);
 
