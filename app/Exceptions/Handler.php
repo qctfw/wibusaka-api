@@ -2,10 +2,9 @@
 
 namespace App\Exceptions;
 
-use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -39,7 +38,7 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->renderable(function (NotFoundHttpException $e) {
-            return $this->formatError(
+            return exception_response(
                 exception: $e,
                 message: 'Route Not Found',
                 status: $e->getStatusCode()
@@ -47,20 +46,20 @@ class Handler extends ExceptionHandler
         });
 
         $this->renderable(function (ValidationException $e) {
-            return $this->formatError($e, $e->getMessage(), $e->errors(), $e->status);
+            return exception_response($e, $e->getMessage(), $e->errors(), $e->status);
+        });
+
+        $this->renderable(function (HttpException $e) {
+            return exception_response(
+                exception: $e,
+                status: $e->getStatusCode()
+            );
         });
 
         $this->renderable(function (Throwable $e) {
-            return $this->formatError(exception: $e);
+            if (config('app.env') == 'production') {
+                return exception_response(exception: $e);
+            }
         });
-    }
- 
-    private function formatError(Exception $exception, ?string $message = null, ?array $errors = null, $status = Response::HTTP_INTERNAL_SERVER_ERROR)
-    {
-        return response()->json([
-            'type' => str(get_class($exception))->explode('\\')->last(),
-            'message' => $message ?? $exception->getMessage(),
-            'errors' => $errors
-        ], $status);
     }
 }
