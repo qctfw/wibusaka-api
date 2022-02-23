@@ -46,7 +46,7 @@ class Handler extends ExceptionHandler
         });
 
         $this->renderable(function (ValidationException $e) {
-            return exception_response($e, $e->getMessage(), $e->errors(), $e->status);
+            return exception_response($e, 'Validation failed. Check `errors` for more information.', $e->errors(), $e->status);
         });
 
         $this->renderable(function (HttpException $e) {
