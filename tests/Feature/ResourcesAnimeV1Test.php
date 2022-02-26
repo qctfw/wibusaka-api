@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Enums\AnimeSource;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
@@ -19,7 +21,7 @@ class ResourcesAnimeV1Test extends TestCase
     public function test_get_one_resource()
     {
         $id_from = AnimeSource::MyAnimeList;
-        $id = rand(1, 50000);
+        $id = rand(1, 10000);
 
         $response = $this->get('/v1/resources/anime/' . $id_from->value . '?id=' . $id);
 
@@ -34,6 +36,31 @@ class ResourcesAnimeV1Test extends TestCase
     }
 
     /**
+     * Test for successfully getting one resource from one Anilist ID.
+     *
+     * @return void
+     */
+    public function test_get_one_resource_anilist()
+    {
+        $id_from = AnimeSource::Anilist;
+        $id = rand(1, 10000);
+        Http::fake([
+            'https://relations.yuna.moe/api/ids' => $this->fakeHttpEntryRelations([$id], $id_from->value)
+        ]);
+
+        $response = $this->get('/v1/resources/anime/' . $id_from->value . '?id=' . $id);
+
+        $response
+            ->assertSuccessful()
+            ->assertJson(fn (AssertableJson $json) => $json
+                    ->has('data', 1, fn (AssertableJson $json) => $json
+                            ->hasAll('id', 'resources')
+                            ->where('id', $id)
+                    )
+            );
+    }
+
+    /**
      * Test for successfully getting multiple (more than 1) resources from multiple IDs.
      *
      * @return void
@@ -42,6 +69,31 @@ class ResourcesAnimeV1Test extends TestCase
     {
         $id_from = AnimeSource::MyAnimeList;
         $ids = $this->generateRandomIds(rand(4, config('wibusaka.max_id_per_request')));
+
+        $response = $this->get('/v1/resources/anime/' . $id_from->value . '?id=' . implode(',', $ids));
+
+        $response
+            ->assertSuccessful()
+            ->assertJson(fn (AssertableJson $json) => $json
+                    ->has('data', count($ids), fn (AssertableJson $json) => $json
+                            ->hasAll('id', 'resources')
+                            ->where('id', $ids[0])
+                    )
+            );
+    }
+
+    /**
+     * Test for successfully getting multiple (more than 1) resources from multiple IDs.
+     *
+     * @return void
+     */
+    public function test_get_multiple_resources_anilist()
+    {
+        $id_from = AnimeSource::Anilist;
+        $ids = $this->generateRandomIds(rand(4, config('wibusaka.max_id_per_request')));
+        Http::fake([
+            'https://relations.yuna.moe/api/ids' => $this->fakeHttpEntryRelations($ids, $id_from->value)
+        ]);
 
         $response = $this->get('/v1/resources/anime/' . $id_from->value . '?id=' . implode(',', $ids));
 
@@ -133,7 +185,7 @@ class ResourcesAnimeV1Test extends TestCase
         $ids = [];
         $i = 1;
         do {
-            $id = rand(1, 50000);
+            $id = rand(1, 10000);
             if (array_search($id, $ids) === false) {
                 $ids[] = $id;
                 $i++;
@@ -141,5 +193,23 @@ class ResourcesAnimeV1Test extends TestCase
         } while ($i <= $max);
 
         return $ids;
+    }
+
+    /**
+     * Generate Fake HTTP Entry Relations for test.
+     * 
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    private function fakeHttpEntryRelations(array $ids, string $source_from)
+    {
+        $responses = [];
+        foreach ($ids as $id) {
+            $responses[] = [
+                $source_from => $id,
+                'myanimelist' => $id
+            ];
+        }
+
+        return Http::response($responses);
     }
 }
