@@ -17,7 +17,7 @@ class Platform extends Model
      * @var string
      */
     protected $table = 'anime_platforms';
-    
+
     /**
      * The "type" of the primary key ID.
      *

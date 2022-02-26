@@ -16,7 +16,7 @@ class MultipleAnimeResource extends JsonResource
     {
         return [
             'id' => $this->resource['id'],
-            'resources' => AnimeResource::collection($this->resource['resources'])
+            'resources' => AnimeResource::collection($this->resource['resources']),
         ];
     }
 }

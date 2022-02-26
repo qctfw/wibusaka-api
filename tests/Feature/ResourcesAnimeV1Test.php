@@ -25,10 +25,8 @@ class ResourcesAnimeV1Test extends TestCase
 
         $response
                 ->assertSuccessful()
-                ->assertJson(fn (AssertableJson $json) =>
-                    $json
-                        ->has('data', 1, fn (AssertableJson $json) =>
-                            $json
+                ->assertJson(fn (AssertableJson $json) => $json
+                        ->has('data', 1, fn (AssertableJson $json) => $json
                                 ->hasAll('id', 'resources')
                                 ->where('id', $id)
                         )
@@ -46,13 +44,11 @@ class ResourcesAnimeV1Test extends TestCase
         $ids = $this->generateRandomIds(rand(4, config('wibusaka.max_id_per_request')));
 
         $response = $this->get('/v1/resources/anime/' . $id_from->value . '?id=' . implode(',', $ids));
-        
+
         $response
             ->assertSuccessful()
-            ->assertJson(fn (AssertableJson $json) =>
-                $json
-                    ->has('data', count($ids), fn (AssertableJson $json) =>
-                        $json
+            ->assertJson(fn (AssertableJson $json) => $json
+                    ->has('data', count($ids), fn (AssertableJson $json) => $json
                             ->hasAll('id', 'resources')
                             ->where('id', $ids[0])
                     )
@@ -73,8 +69,7 @@ class ResourcesAnimeV1Test extends TestCase
 
         $response
             ->assertUnprocessable()
-            ->assertJson(fn (AssertableJson $json) =>
-                $json
+            ->assertJson(fn (AssertableJson $json) => $json
                     ->where('type', 'ValidationException')
                     ->etc()
             );
@@ -99,8 +94,7 @@ class ResourcesAnimeV1Test extends TestCase
         // Assertion
         $response
             ->assertUnprocessable()
-            ->assertJson(fn (AssertableJson $json) =>
-                $json
+            ->assertJson(fn (AssertableJson $json) => $json
                     ->where('type', 'RequestIdsExceededException')
                     ->etc()
             );
@@ -121,10 +115,8 @@ class ResourcesAnimeV1Test extends TestCase
 
         $response
             ->assertSuccessful()
-            ->assertJson(fn (AssertableJson $json) =>
-                $json
-                    ->has('data', count($unique_ids), fn (AssertableJson $json) =>
-                        $json
+            ->assertJson(fn (AssertableJson $json) => $json
+                    ->has('data', count($unique_ids), fn (AssertableJson $json) => $json
                             ->hasAll('id', 'resources')
                             ->where('id', $ids[0])
                     )

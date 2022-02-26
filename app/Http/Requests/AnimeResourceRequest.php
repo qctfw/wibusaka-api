@@ -24,7 +24,7 @@ class AnimeResourceRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => ['required', 'not_regex:/([^0-9,\s])/']
+            'id' => ['required', 'not_regex:/([^0-9,\s])/'],
         ];
     }
 }

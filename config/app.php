@@ -53,13 +53,13 @@ return [
     | your application so that it is used when running Artisan tasks.
     |
     */
-    
+
     'url' => env('APP_URL', 'http://localhost'),
-    
+
     'asset_url' => env('ASSET_URL', null),
-    
+
     'api_docs_url' => env('API_DOCUMENTATION_URL', 'http://localhost'),
-    
+
     'discord_url' => env('WIBUSAKA_LINK_DISCORD'),
 
     /*

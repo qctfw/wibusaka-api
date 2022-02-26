@@ -15,8 +15,7 @@ class AnimeResourceController extends Controller
     public function __construct(
         private EntryServiceInterface $entry_service,
         private ResourceServiceInterface $resource_service
-    )
-    {
+    ) {
         $this->entry_service = $entry_service;
         $this->resource_service = $resource_service;
     }
@@ -42,11 +41,10 @@ class AnimeResourceController extends Controller
     private function prepareResponse(Collection|array $ids, Collection|array $resources): Collection
     {
         $response = collect();
-        foreach ($ids as $id_from_request => $id)
-        {
+        foreach ($ids as $id_from_request => $id) {
             $response->push([
                 'id' => $id_from_request,
-                'resources' => $resources[$id] ?? []
+                'resources' => $resources[$id] ?? [],
             ]);
         }
 
