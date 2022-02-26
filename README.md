@@ -1,64 +1,69 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# WibuSaka API
+Wibusaka API is a simple REST API to inform you where to watch anime legally in Indonesia using your favorite anime lists. (Currently supports MyAnimeList, and Anilist)
 
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+    <a href="https://github.com/qctfw/wibusaka-api/actions"><img src="https://github.com/qctfw/wibusaka-api/actions/workflows/laravel.yml/badge.svg" /></a>
+    <a href="https://github.styleci.io/repos/461522076"><img src="https://github.styleci.io/repos/461522076/shield?style=plastic" /></a>
 </p>
 
-## About Laravel
+## How To Use
+API Documentation are coming soon. Please stay tuned.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Deployment
+If you want to deploy for yourself, please follow these instructions.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Requirements
+- PHP 8.1+
+- MySQL 5.7+
+- Redis
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Installation and Configuration
 
-## Learning Laravel
+1. Copy `.env.example` into `.env` and edit these values
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+    - Database
+    ```env
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=YOUR_DATABASE_NAME
+    DB_USERNAME=YOUR_DATABASE_USERNAME
+    DB_PASSWORD=YOUR_DATABASE_PASSWORD
+    ```
+    - Redis
+    ```env
+    REDIS_CLIENT=predis
+    REDIS_SCHEME=tcp
+    REDIS_PATH=YOUR_REDIS_PATH_IF_SCHEME_IS_UNIX
+    REDIS_HOST=127.0.0.1
+    REDIS_PASSWORD=YOUR_REDIS_PASSWORD
+    REDIS_PORT=6379
+    ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. Install composer packages
+    ```bash
+    composer install
+    ```
 
-## Laravel Sponsors
+3. Generate Laravel Application Key
+    ```bash
+    php artisan key:generate
+    ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+4. Run the Migration
+    ```bash
+    php artisan migrate
+    ```
 
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Test
+After installing and configuring everything, run the test to make sure the application running properly.
+```bash
+php artisan test
+```
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Contributions are always welcome! Create a pull request **[here](https://github.com/qctfw/wibusaka/pulls)**!
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This repository used **[StyleCI](https://styleci.io)** to check the code style. You can check the rules **[here](.styleci.yml/)**.
+Also, please make sure to check the existing pull request to avoid duplication.
