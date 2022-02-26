@@ -13,7 +13,7 @@ class EntryService implements EntryServiceInterface
 {
     public function convert(array|int $ids, AnimeSource $entry_from, AnimeSource $entry_to = AnimeSource::MyAnimeList): Collection
     {
-        $result = collect($ids)->mapWithKeys(function ($id) {
+        $result = $ids = collect($ids)->mapWithKeys(function ($id) {
             return [$id => intval($id)];
         });
 
@@ -24,13 +24,13 @@ class EntryService implements EntryServiceInterface
         $processed_ids = collect();
         $request_ids = collect();
 
-        $dead_ids = $this->getDeadID($ids, $entry_from);
+        $dead_ids = $this->getDeadID($ids->toArray(), $entry_from);
         foreach ($dead_ids as $dead_id) {
             $processed_ids->push($dead_id);
             $result[$dead_id] = null;
         }
 
-        $result_db = $this->convertFromDB($ids, $entry_from, $entry_to)->filter();
+        $result_db = $this->convertFromDB($ids->toArray(), $entry_from, $entry_to)->filter();
         $result_db->each(function ($id_to, $id_from) use ($processed_ids, $result) {
             $processed_ids->push($id_from);
             $result[$id_from] = $id_to;
