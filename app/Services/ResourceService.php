@@ -11,9 +11,8 @@ class ResourceService implements ResourceServiceInterface
 {
     public function get(array|int $mal_ids): Collection
     {
-        if (is_integer($mal_ids))
-        {
-            $mal_ids = array($mal_ids);
+        if (is_integer($mal_ids)) {
+            $mal_ids = [$mal_ids];
         }
 
         $resources_result = collect();
@@ -22,10 +21,9 @@ class ResourceService implements ResourceServiceInterface
         foreach ($mal_ids as $mal_id) {
             $resources_cache = $this->getFromCache($mal_id);
 
-            if (!is_null($resources_cache)) {
+            if (! is_null($resources_cache)) {
                 $resources_result->put($mal_id, $resources_cache);
-            }
-            else {
+            } else {
                 $mal_ids_db->push($mal_id);
             }
         }

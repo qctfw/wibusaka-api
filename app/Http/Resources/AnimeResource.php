@@ -19,7 +19,7 @@ class AnimeResource extends JsonResource
             'platform_type' => $this->platform->type,
             'url' => $this->link,
             'is_paid' => $this->paid,
-            'note' => $this->when(!empty($this->note), $this->note, null)
+            'note' => $this->when(! empty($this->note), $this->note, null),
         ];
     }
 }

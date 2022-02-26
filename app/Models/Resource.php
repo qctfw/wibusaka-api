@@ -17,7 +17,7 @@ class Resource extends Model
      * @var string
      */
     protected $table = 'anime_resources';
-    
+
     /**
      * The "type" of the primary key ID.
      *
@@ -65,8 +65,7 @@ class Resource extends Model
      */
     public function scopeByMalId($query, array|int $mal_id)
     {
-        if (Arr::accessible($mal_id))
-        {
+        if (Arr::accessible($mal_id)) {
             return $query->whereIn('mal_id', $mal_id);
         }
 

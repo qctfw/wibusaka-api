@@ -42,14 +42,13 @@ class EntryService implements EntryServiceInterface
             }
         }
 
-        if ($request_ids->isNotEmpty())
-        {
+        if ($request_ids->isNotEmpty()) {
             $response_ids = collect();
             $http_response = Http::baseUrl('https://relations.yuna.moe')->acceptJson()->asJson()->post('api/ids', $request_ids);
 
             foreach ($http_response->json() as $response_index => $response_id) {
-                $id_from = (!is_null($response_id)) ? $response_id[$entry_from->value] : $request_ids[$response_index][$entry_from->value];
-                $id_to = (!is_null($response_id)) ? $response_id[$entry_to->value] : null;
+                $id_from = (! is_null($response_id)) ? $response_id[$entry_from->value] : $request_ids[$response_index][$entry_from->value];
+                $id_to = (! is_null($response_id)) ? $response_id[$entry_to->value] : null;
 
                 $result[$id_from] = $id_to;
 
@@ -64,9 +63,8 @@ class EntryService implements EntryServiceInterface
 
     public function convertFromDB(array|int $ids, AnimeSource $entry_from, AnimeSource $entry_to = AnimeSource::MyAnimeList)
     {
-        if (is_integer($ids))
-        {
-            $ids = array($ids);
+        if (is_integer($ids)) {
+            $ids = [$ids];
         }
 
         $column_from = $entry_from->value . '_id';
@@ -77,7 +75,7 @@ class EntryService implements EntryServiceInterface
         $result = collect();
         foreach ($ids as $id) {
             $entry = $entries->where($column_from, $id)->first();
-            
+
             $result->put($id, $entry?->getOriginal($column_to));
         }
 
@@ -90,11 +88,10 @@ class EntryService implements EntryServiceInterface
         foreach ($ids as $id_from => $id_to) {
             if (is_null($id_to)) {
                 Cache::tags(['db', 'dead-entries', 'dead-' . $entry_from->value . '-id'])->put($id_from, true);
-            }
-            else {
+            } else {
                 $entries->push([
                     $entry_from->value . '_id' => $id_from,
-                    $entry_to->value . '_id' => $id_to
+                    $entry_to->value . '_id' => $id_to,
                 ]);
             }
         }
@@ -104,9 +101,8 @@ class EntryService implements EntryServiceInterface
 
     private function getDeadID(array|int $ids, AnimeSource $entry_from)
     {
-        if (is_integer($ids))
-        {
-            $ids = array($ids);
+        if (is_integer($ids)) {
+            $ids = [$ids];
         }
 
         $dead_ids = collect();
