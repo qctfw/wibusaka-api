@@ -6,6 +6,9 @@ Wibusaka API is a simple REST API to inform you where to watch anime legally in 
     <a href="https://github.styleci.io/repos/461522076"><img src="https://github.styleci.io/repos/461522076/shield?style=plastic" /></a>
 </p>
 
+## Tools
+Primarily, this project uses Laravel as a framework. This project also uses [arm-server](https://github.com/BeeeQueue/arm-server) and [anime-offline-database](https://github.com/manami-project/anime-offline-database) for fetching anime list ID relations.
+
 ## How To Use
 API Documentation are coming soon. Please stay tuned.
 
@@ -22,7 +25,7 @@ If you want to deploy for yourself, please follow these instructions.
 1. Copy `.env.example` into `.env` and edit these values
 
     - Database
-    ```env
+    ```ini
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
     DB_PORT=3306
@@ -31,7 +34,7 @@ If you want to deploy for yourself, please follow these instructions.
     DB_PASSWORD=YOUR_DATABASE_PASSWORD
     ```
     - Redis
-    ```env
+    ```ini
     REDIS_CLIENT=predis
     REDIS_SCHEME=tcp
     REDIS_PATH=YOUR_REDIS_PATH_IF_SCHEME_IS_UNIX
