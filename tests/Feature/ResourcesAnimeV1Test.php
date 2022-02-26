@@ -197,7 +197,7 @@ class ResourcesAnimeV1Test extends TestCase
 
     /**
      * Generate Fake HTTP Entry Relations for test.
-     * 
+     *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     private function fakeHttpEntryRelations(array $ids, string $source_from)
