@@ -45,7 +45,7 @@ class ResourcesAnimeV1Test extends TestCase
         $id_from = AnimeSource::Anilist;
         $id = rand(1, 10000);
         Http::fake([
-            'https://relations.yuna.moe/api/ids' => $this->fakeHttpEntryRelations([$id], $id_from->value)
+            'https://relations.yuna.moe/api/ids' => $this->fakeHttpEntryRelations([$id], $id_from->value),
         ]);
 
         $response = $this->get('/v1/resources/anime/' . $id_from->value . '?id=' . $id);
@@ -92,7 +92,7 @@ class ResourcesAnimeV1Test extends TestCase
         $id_from = AnimeSource::Anilist;
         $ids = $this->generateRandomIds(rand(4, config('wibusaka.max_id_per_request')));
         Http::fake([
-            'https://relations.yuna.moe/api/ids' => $this->fakeHttpEntryRelations($ids, $id_from->value)
+            'https://relations.yuna.moe/api/ids' => $this->fakeHttpEntryRelations($ids, $id_from->value),
         ]);
 
         $response = $this->get('/v1/resources/anime/' . $id_from->value . '?id=' . implode(',', $ids));
@@ -206,7 +206,7 @@ class ResourcesAnimeV1Test extends TestCase
         foreach ($ids as $id) {
             $responses[] = [
                 $source_from => $id,
-                'myanimelist' => $id
+                'myanimelist' => $id,
             ];
         }
 
