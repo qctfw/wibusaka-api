@@ -3,11 +3,14 @@
 namespace Tests\Feature;
 
 use App\Enums\AnimeSource;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
 class ResourcesAnimeV1Test extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * Test for successfully getting one resource from one ID.
      *
