@@ -9,8 +9,8 @@ Wibusaka API is a simple REST API to inform you where to watch anime legally in 
 ## Tools
 Primarily, this project uses Laravel as a framework. This project also uses [arm-server](https://github.com/BeeeQueue/arm-server) and [anime-offline-database](https://github.com/manami-project/anime-offline-database) for fetching anime list ID relations.
 
-## How To Use
-API Documentation are coming soon. Please stay tuned.
+## API Documentation
+Check the API Documentation **[here](https://api.wibusaka.moe/docs)**.
 
 ## Deployment
 If you want to deploy for yourself, please follow these instructions.
