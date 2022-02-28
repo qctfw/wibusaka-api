@@ -1,5 +1,5 @@
 # WibuSaka API
-Wibusaka API is a simple REST API to inform you where to watch anime legally in Indonesia using your favorite anime lists. (Currently supports MyAnimeList, and Anilist)
+WibuSaka API is a simple REST API for fetching legal streaming platform in Indonesia using your favorite anime lists. (Currently supports MyAnimeList, and Anilist)
 
 <p align="center">
     <a href="https://github.com/qctfw/wibusaka-api/actions"><img src="https://github.com/qctfw/wibusaka-api/actions/workflows/laravel.yml/badge.svg" /></a>
@@ -10,7 +10,7 @@ Wibusaka API is a simple REST API to inform you where to watch anime legally in 
 Primarily, this project uses Laravel as a framework. This project also uses [arm-server](https://github.com/BeeeQueue/arm-server) and [anime-offline-database](https://github.com/manami-project/anime-offline-database) for fetching anime list ID relations.
 
 ## API Documentation
-Check the API Documentation **[here](https://api.wibusaka.moe/docs)**.
+Check the API Documentation **[here](https://docs.wibusaka.moe)**.
 
 ## Deployment
 If you want to deploy for yourself, please follow these instructions.
