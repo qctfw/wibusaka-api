@@ -58,6 +58,8 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
+    'home_url' => env('HOME_URL', 'http://localhost'),
+
     'api_docs_url' => env('API_DOCUMENTATION_URL', 'http://localhost'),
 
     'discord_url' => env('WIBUSAKA_LINK_DISCORD'),

@@ -36,6 +36,7 @@ class RouteServiceProvider extends ServiceProvider
                     'current_version' => $v,
                     'current_version_url' => config('app.url') . '/v' . explode('.', $v)[0],
                     'api_documentations' => config('app.api_docs_url'),
+                    'home' => config('app.home_url'),
                     'discord' => config('app.discord_url'),
                 ]);
             });
